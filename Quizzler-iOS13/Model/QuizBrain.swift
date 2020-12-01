@@ -1,24 +1,16 @@
 //
-//  ViewController.swift
+//  QuizBrain.swift
 //  Quizzler-iOS13
 //
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
+//  Created by Faiq on 01/12/2020.
+//  Copyright © 2020 The App Brewery. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class ViewController: UIViewController {
+struct QuizBrain {
     
-    //MARK:- IBActions
-    @IBOutlet weak var questionLabel: UILabel!
-    @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
-    
-    //Constants
     let quiz = [
-        
         Question(q: "A slug's blood is green.", a: "True"),
         Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
         Question(q: "The total surface area of two human lungs is approximately 70 square metres.", a: "True"),
@@ -35,25 +27,29 @@ class ViewController: UIViewController {
     
     var questionNumber = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        updateUI()
-        
-    }
-
-    //MARK:- IBActions
-    @IBAction func answerButtonPressed(_ sender: UIButton) {
-        //To check user answer
-        let userAnswer = sender.currentTitle //True, False
-        let actualAnswer = quiz[questionNumber].answer //all ans is on 1 of every array obj
-        
-        if userAnswer == actualAnswer {
-            print("Right")
+    
+    //MARK:- Helper Methods
+    func checkAnswer(answer userAnswer: String) -> Bool {
+        if userAnswer == quiz[questionNumber].answer {
+            //User got it right
+            return true
         } else {
-            print("Wrong!")
+            //User got it wrong
+            return false
         }
-        
+    }
+    
+    func getQuestionText() -> String {
+        return quiz[questionNumber].text
+    }
+    
+    func getProgress() -> Float{
+        let progress = Float(questionNumber)/Float(quiz.count)
+        return progress
+    }
+    
+    /**Swift struct are immutable (cannot be changed). To safe change an object you have to tell it by assigning the word 'mutating' before the func */
+    mutating func nextQuestion() {
         //To move to new ques after the current ques assessment
         if questionNumber + 1 < quiz.count {
             questionNumber += 1
@@ -61,15 +57,6 @@ class ViewController: UIViewController {
             //To restart question if detect last quest
             questionNumber = 0
         }
-        
-        updateUI()
     }
-    
-    //MARK:- Helper Methods
-    func updateUI(){
-        questionLabel.text = quiz[questionNumber].text
-    }
-    
     
 }
-
