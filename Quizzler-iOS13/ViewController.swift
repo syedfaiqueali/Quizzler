@@ -18,9 +18,9 @@ class ViewController: UIViewController {
     
     //Constants
     let quiz = [
-        ["Four + Two is equal to Six.","True"],
-        ["Five - Three is greater than One","True"],
-        ["Three + Eight is less than Ten","False"]
+        Question(text: "Four + Two is equal to Six.", answer: "True"),
+        Question(text: "Five - Three is greater than One", answer: "True"),
+        Question(text: "Three + Eight is less than Ten", answer: "False")
     ]
     
     var questionNumber = 0
@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         //To check user answer
         let userAnswer = sender.currentTitle //True, False
-        let actualAnswer = quiz[questionNumber][1] //all ans is on 1 of every array obj
+        let actualAnswer = quiz[questionNumber].answer //all ans is on 1 of every array obj
         
         if userAnswer == actualAnswer {
             print("Right")
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     
     //MARK:- Helper Methods
     func updateUI(){
-        questionLabel.text = quiz[questionNumber][0]
+        questionLabel.text = quiz[questionNumber].text
     }
     
     
