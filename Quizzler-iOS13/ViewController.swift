@@ -35,13 +35,30 @@ class ViewController: UIViewController {
 
     //MARK:- IBActions
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-        questionNumber += 1
+        //To check user answer
+        let userAnswer = sender.currentTitle //True, False
+        let actualAnswer = quiz[questionNumber][1] //all ans is on 1 of every array obj
+        
+        if userAnswer == actualAnswer {
+            print("Right")
+        } else {
+            print("Wrong!")
+        }
+        
+        //To move to new ques after the current ques assessment
+        if questionNumber + 1 < quiz.count {
+            questionNumber += 1
+        } else {
+            //To restart question if detect last quest
+            questionNumber = 0
+        }
+        
         updateUI()
     }
     
     //MARK:- Helper Methods
     func updateUI(){
-        //questionLabel.text = quiz[questionNumber]
+        questionLabel.text = quiz[questionNumber][0]
     }
     
     
