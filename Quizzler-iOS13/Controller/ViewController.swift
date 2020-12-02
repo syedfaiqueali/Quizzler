@@ -10,11 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //MARK:- IBActions
+    //MARK:- IBOutlets
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    
+    @IBOutlet weak var choice1: UIButton!
+    @IBOutlet weak var choice2: UIButton!
+    @IBOutlet weak var choice3: UIButton!
+    
     @IBOutlet weak var scoreLabel: UILabel!
     
     //object
@@ -30,6 +33,7 @@ class ViewController: UIViewController {
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         //To check user answer
         guard let userAnswer = sender.currentTitle else {return}//True, False
+        
         let userGotItRight = quizBrain.checkAnswer(answer: userAnswer) //Actual ans {return: true/false}
         
         if userGotItRight{
@@ -47,13 +51,23 @@ class ViewController: UIViewController {
     
     //MARK:- Helper Methods
     @objc func updateUI(){
+        //Fetch the question and update ques label
         questionLabel.text = quizBrain.getQuestionText()
-        progressBar.progress = quizBrain.getProgress()
         
+        //Fetch the ans and update button titles
+        let answerChoices = quizBrain.getAnswers()
+        choice1.setTitle(answerChoices[0], for: .normal)
+        choice2.setTitle(answerChoices[1], for: .normal)
+        choice3.setTitle(answerChoices[2], for: .normal)
+        
+        //Fetch progress & score and update progress & score
+        progressBar.progress = quizBrain.getProgress()
         scoreLabel.text = "Score: \(quizBrain.getScore())"
         
-        trueButton.backgroundColor = UIColor.clear
-        falseButton.backgroundColor = UIColor.clear
+        //Reset button background color
+        choice1.backgroundColor = UIColor.clear
+        choice2.backgroundColor = UIColor.clear
+        choice3.backgroundColor = UIColor.clear
     }
     
     
