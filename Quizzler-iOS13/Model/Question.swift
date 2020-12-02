@@ -10,11 +10,17 @@ import Foundation
 
 struct Question {
     let text: String
-    let answer: String
     
-    init(q: String, a: String) {
-        self.text = q
-        self.answer = a
+    //Multiple choice questions have multiple ans. So, array.
+    let answers: [String]
+    
+    //Quiz data have another parameter of correct ans
+    let rightAnswer: String
+    
+    init(q: String, a: [String], correctAnswer: String) {
+        text = q
+        answers = a
+        rightAnswer = correctAnswer
     }
     
 }
