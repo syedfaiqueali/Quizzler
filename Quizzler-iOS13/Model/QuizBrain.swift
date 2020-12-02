@@ -26,12 +26,14 @@ struct QuizBrain {
     ]
     
     var questionNumber = 0
+    var score = 0
     
     
     //MARK:- Helper Methods
-    func checkAnswer(answer userAnswer: String) -> Bool {
+    mutating func checkAnswer(answer userAnswer: String) -> Bool {
         if userAnswer == quiz[questionNumber].answer {
             //User got it right
+            score += 1
             return true
         } else {
             //User got it wrong
@@ -56,7 +58,13 @@ struct QuizBrain {
         } else {
             //To restart question if detect last quest
             questionNumber = 0
+            score = 0
         }
+    }
+    
+    //returns user score
+    func getScore() -> Int {
+        return score
     }
     
 }
